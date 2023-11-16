@@ -1,0 +1,2 @@
+-P macos-latest=-self-hosted
+--secret-file my.secrets

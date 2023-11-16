@@ -7,18 +7,19 @@ on:
 
 jobs:
   builds:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
 
       # Setup Java environment in order to build the Android app.
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          java-version: '12.x'
+          distribution: 'zulu'
+          java-version: '11'
           cache: 'gradle'
 
       # Setup the flutter environment.
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # 'dev', 'alpha', default to: 'stable'
           cache: true
@@ -40,7 +41,7 @@ jobs:
       - run: flutter build apk
 
       - name: Upload Android Release
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: android-release
           path: build/app/outputs/flutter-apk/app-release.apk
